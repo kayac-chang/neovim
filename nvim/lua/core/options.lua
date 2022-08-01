@@ -20,7 +20,7 @@ opt.completeopt = 'menuone,noinsert,noselect'  -- Autocomplete options
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
-opt.number = true           -- Show line number
+opt.relativenumber = true           -- Show line number
 opt.showmatch = true        -- Highlight matching parenthesis
 opt.foldmethod = 'marker'   -- Enable folding (default 'foldmarker')
 opt.colorcolumn = '80'      -- Line lenght marker at 80 columns
@@ -87,3 +87,8 @@ local disabled_built_ins = {
 for _, plugin in pairs(disabled_built_ins) do
    g["loaded_" .. plugin] = 1
 end
+
+-- For Deno
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}

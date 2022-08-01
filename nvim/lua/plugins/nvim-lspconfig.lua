@@ -75,7 +75,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -100,17 +100,23 @@ https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.m
 Bash --> bashls
 https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#bashls
 
-Python --> pyright
-https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
-
-C-C++ --> clangd
-https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
-
 HTML/CSS/JSON --> vscode-html-languageserver
 https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
 
 JavaScript/TypeScript --> tsserver
 https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
+
+Tailwindcss --> tailwindcss
+https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tailwindcss
+
+Prisma --> prismals
+https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#prismals
+
+Deno --> denols
+https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#denols
+
+Rust --> rls
+https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rls
 
 --]]
 
@@ -124,7 +130,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches.
 -- Add your language server below:
-local servers = { 'bashls', 'pyright', 'clangd', 'html', 'cssls', 'tsserver' }
+local servers = { 'bashls', 'html', 'cssls', 'tsserver', 'tailwindcss', 'prismals', 'denols', 'rls' }
 
 -- Call setup
 for _, lsp in ipairs(servers) do
@@ -138,3 +144,17 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+lspconfig.emmet_ls.setup({
+    capabilities = capabilities,
+    filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+    init_options = {
+      html = {
+        -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+        options = {
+          ['comment.enabled'] = true,
+          ["jsx.enabled"] = true,
+        },
+      },
+    }
+})
