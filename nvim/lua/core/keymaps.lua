@@ -11,7 +11,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Change leader to a comma
-vim.g.mapleader = ','
+vim.g.mapleader = ' '
 
 -----------------------------------------------------------
 -- Neovim shortcuts
@@ -33,20 +33,12 @@ map('n', '<leader>c', ':nohl<CR>')
 map('n', '<F2>', ':set invpaste paste?<CR>')
 vim.opt.pastetoggle = '<F2>'
 
--- Change split orientation
--- map('n', '<leader>tk', '<C-w>t<C-w>K') -- change vertical to horizontal
--- map('n', '<leader>th', '<C-w>t<C-w>H') -- change horizontal to vertical
-
 -- Move around splits using Ctrl + {h,j,k,l}
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-l>', '<C-w>l')
 
 -- Reload configuration without restart nvim
 map('n', '<leader>r', ':so %<CR>')
-
--- Fast saving with <leader> and s
-map('n', '<leader>s', ':w<CR>')
-map('i', '<leader>s', '<C-c>:w<CR>')
 
 -- Close all windows and exit from Neovim with <leader> and q
 map('n', '<leader>q', ':qa!<CR>')
@@ -58,6 +50,9 @@ map('i', '<C-j>', '<Esc>:m .+1<CR>==gi')
 map('i', '<C-k>', '<Esc>:m .-2<CR>==gi')
 map('v', '<C-j>', ":m '>+1<CR>gv=gv")
 map('v', '<C-k>', ":m '<-2<CR>gv=gv")
+
+--
+map('', '<leader>p', '\"_dP')
 
 -----------------------------------------------------------
 -- Applications and Plugins shortcuts

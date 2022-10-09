@@ -36,6 +36,10 @@ formatter.setup {
     },
     typescriptreact = {
       require("formatter.defaults.prettier")
+    },
+
+    rust = {
+      require("formatter.filetypes.rust").rustfmt
     }
   }
 }

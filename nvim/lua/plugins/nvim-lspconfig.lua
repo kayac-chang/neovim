@@ -54,7 +54,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Highlighting references
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.api.nvim_exec([[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -112,9 +112,6 @@ https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.m
 Prisma --> prismals
 https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#prismals
 
-Deno --> denols
-https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#denols
-
 Rust --> rls
 https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rls
 
@@ -130,7 +127,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches.
 -- Add your language server below:
-local servers = { 'bashls', 'html', 'cssls', 'tsserver', 'tailwindcss', 'prismals', 'denols', 'rls' }
+local servers = { 'bashls', 'html', 'cssls', 'tailwindcss', 'prismals', 'rls' }
 
 -- Call setup
 for _, lsp in ipairs(servers) do
@@ -145,8 +142,34 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = {
+    -- default in neovim 0.7+
+    debounce_text_changes = 150,
+  },
+  root_dir = lspconfig.util.root_pattern("package.json"),
+}
+
+lspconfig.denols.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = {
+    -- default in neovim 0.7+
+    debounce_text_changes = 150,
+  },
+  single_file_support = false,
+  root_dir = lspconfig.util.root_pattern("deno.json"),
+}
+
 lspconfig.emmet_ls.setup({
+    on_attach = on_attach,
     capabilities = capabilities,
+    flags = {
+      -- default in neovim 0.7+
+      debounce_text_changes = 150,
+    },
     filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
     init_options = {
       html = {
