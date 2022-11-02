@@ -75,6 +75,7 @@ return packer.startup(function(use)
 
   -- LSP
   use 'neovim/nvim-lspconfig'
+  use 'kabouzeid/nvim-lspinstall'
 
   -- Autocomplete
   use {

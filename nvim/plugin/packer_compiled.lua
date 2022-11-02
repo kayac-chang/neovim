@@ -151,6 +151,11 @@ _G.packer_plugins = {
     path = "/Users/kayac/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-lspinstall"] = {
+    loaded = true,
+    path = "/Users/kayac/.local/share/nvim/site/pack/packer/start/nvim-lspinstall",
+    url = "https://github.com/kabouzeid/nvim-lspinstall"
+  },
   ["nvim-surround"] = {
     loaded = true,
     path = "/Users/kayac/.local/share/nvim/site/pack/packer/start/nvim-surround",
