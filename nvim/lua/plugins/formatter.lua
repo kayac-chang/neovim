@@ -38,8 +38,14 @@ formatter.setup {
       require("formatter.defaults.prettier")
     },
 
+    -- Rust
     rust = {
       require("formatter.filetypes.rust").rustfmt
+    },
+
+    -- Python
+    python = {
+      require("formatter.filetypes.python").autopep8
     }
   }
 }
