@@ -46,6 +46,16 @@ formatter.setup {
     -- Python
     python = {
       require("formatter.filetypes.python").autopep8
+    },
+
+    -- Lua
+    lua = {
+      require("formatter.filetypes.lua").luafmt
+    },
+
+    -- Markdown
+    markdown = {
+      require("formatter.defaults.prettier")
     }
   }
 }

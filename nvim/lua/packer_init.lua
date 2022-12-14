@@ -66,7 +66,7 @@ return packer.startup(function(use)
   use 'preservim/tagbar'
 
   -- Treesitter interface
-  use 'nvim-treesitter/nvim-treesitter'
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
   -- Color schemes
   use 'navarasu/onedark.nvim'
@@ -75,7 +75,11 @@ return packer.startup(function(use)
 
   -- LSP
   use 'neovim/nvim-lspconfig'
-  use 'kabouzeid/nvim-lspinstall'
+  use 'williamboman/mason.nvim'
+
+  -- Symbol outline
+  use { 'mxsdev/symbols-outline.nvim', branch='merge-jsx-tree' }
+
 
   -- Autocomplete
   use {
