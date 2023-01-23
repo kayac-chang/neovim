@@ -9,130 +9,127 @@
 -- neovim-lua/README.md
 -- https://github.com/brainfucksec/neovim-lua#readme
 
-
 -- Automatically install packer
 local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({
-    'git',
-    'clone',
-    '--depth',
-    '1',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path
-  })
-  vim.o.runtimepath = vim.fn.stdpath('data') .. '/site/pack/*/start/*,' .. vim.o.runtimepath
+	packer_bootstrap = fn.system({
+		"git",
+		"clone",
+		"--depth",
+		"1",
+		"https://github.com/wbthomason/packer.nvim",
+		install_path,
+	})
+	vim.o.runtimepath = vim.fn.stdpath("data") .. "/site/pack/*/start/*," .. vim.o.runtimepath
 end
 
 -- Autocommand that reloads neovim whenever you save the packer_init.lua file
-vim.cmd [[
+vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost packer_init.lua source <afile> | PackerSync
   augroup end
-]]
+]])
 
 -- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, 'packer')
+local status_ok, packer = pcall(require, "packer")
 if not status_ok then
-  return
+	return
 end
 
 -- Install plugins
 return packer.startup(function(use)
-  -- Add you plugins here:
-  use 'wbthomason/packer.nvim' -- packer can manage itself
+	use("wbthomason/packer.nvim") -- packer can manage itself
 
-  -- File explorer
-  use 'kyazdani42/nvim-tree.lua'
+	-- File explorer
+	use("kyazdani42/nvim-tree.lua")
 
-  -- Indent line
-  use 'lukas-reineke/indent-blankline.nvim'
+	-- Indent line
+	use("lukas-reineke/indent-blankline.nvim")
 
-  -- Autopair
-  use {
-    'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup{}
-    end
-  }
+	-- Autopair
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	})
 
-  -- Icons
-  use 'kyazdani42/nvim-web-devicons'
+	-- Icons
+	use("kyazdani42/nvim-web-devicons")
 
-  -- Tag viewer
-  use 'preservim/tagbar'
+	-- Tag viewer
+	use("preservim/tagbar")
 
-  -- Treesitter interface
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	-- Treesitter interface
+	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 
-  -- Color schemes
-  use 'navarasu/onedark.nvim'
-  use 'tanvirtin/monokai.nvim'
-  use { 'rose-pine/neovim', as = 'rose-pine' }
+	-- Color schemes
+	use("navarasu/onedark.nvim")
+	use("tanvirtin/monokai.nvim")
+	use({ "rose-pine/neovim", as = "rose-pine" })
 
-  -- LSP
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/mason.nvim'
+	-- LSP
+	use("neovim/nvim-lspconfig")
+	use("williamboman/mason.nvim")
 
-  -- Symbol outline
-  use { 'mxsdev/symbols-outline.nvim', branch='merge-jsx-tree' }
+	-- Symbol outline
+	use({ "mxsdev/symbols-outline.nvim", branch = "merge-jsx-tree" })
 
+	-- Autocomplete
+	use({
+		"hrsh7th/nvim-cmp",
+		requires = {
+			"L3MON4D3/LuaSnip",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-buffer",
+			"saadparwaiz1/cmp_luasnip",
+		},
+	})
 
-  -- Autocomplete
-  use {
-    'hrsh7th/nvim-cmp',
-    requires = {
-      'L3MON4D3/LuaSnip',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-buffer',
-      'saadparwaiz1/cmp_luasnip',
-    },
-  }
+	-- Statusline
+	use({
+		"feline-nvim/feline.nvim",
+		requires = { "kyazdani42/nvim-web-devicons" },
+	})
 
-  -- Statusline
-  use {
-    'feline-nvim/feline.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-  }
+	-- git labels
+	use({
+		"lewis6991/gitsigns.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("gitsigns").setup({})
+		end,
+	})
 
-  -- git labels
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require('gitsigns').setup{}
-    end
-  }
+	-- Dashboard (start screen)
+	use({
+		"goolord/alpha-nvim",
+		requires = { "kyazdani42/nvim-web-devicons" },
+	})
 
-  -- Dashboard (start screen)
-  use {
-    'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-  }
+	-- Fuzzy Finder
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.0",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
 
-  -- Fuzzy Finder
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
+	-- Formatter
+	use("mhartington/formatter.nvim")
 
-  -- Formatter
-  use 'mhartington/formatter.nvim'
+	-- Surround
+	use("kylechui/nvim-surround")
 
-  -- Surround
-  use 'kylechui/nvim-surround'
+	-- Comment
+	use("JoosepAlviste/nvim-ts-context-commentstring")
+	use("terrortylor/nvim-comment")
 
-  -- Comment
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-  use 'terrortylor/nvim-comment'
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
+	-- Automatically set up your configuration after cloning packer.nvim
+	-- Put this at the end after all plugins
+	if packer_bootstrap then
+		require("packer").sync()
+	end
 end)
