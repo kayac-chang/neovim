@@ -137,37 +137,23 @@ end
 -- map buffer local keybindings when the language server attaches.
 -- Add your language server below:
 local servers = { "bashls", "html", "cssls", "tailwindcss", "prismals", "rls", "pylsp", "eslint" }
-
--- Call setup
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
 		on_attach = on_attach,
 		root_dir = root_dir,
 		capabilities = capabilities,
-		flags = {
-			-- default in neovim 0.7+
-			debounce_text_changes = 150,
-		},
 	})
 end
 
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	flags = {
-		-- default in neovim 0.7+
-		debounce_text_changes = 150,
-	},
 	root_dir = lspconfig.util.root_pattern("package.json"),
 })
 
 lspconfig.denols.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	flags = {
-		-- default in neovim 0.7+
-		debounce_text_changes = 150,
-	},
 	single_file_support = false,
 	root_dir = lspconfig.util.root_pattern("deno.json"),
 })
@@ -175,10 +161,6 @@ lspconfig.denols.setup({
 lspconfig.emmet_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	flags = {
-		-- default in neovim 0.7+
-		debounce_text_changes = 150,
-	},
 	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 	init_options = {
 		html = {
@@ -194,8 +176,4 @@ lspconfig.emmet_ls.setup({
 lspconfig.sqls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	flags = {
-		-- default in neovim 0.7+
-		debounce_text_changes = 150,
-	},
 })

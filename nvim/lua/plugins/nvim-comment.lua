@@ -12,7 +12,7 @@ end
 
 comment.setup({
 	hook = function()
-		if vim.api.nvim_buf_get_option(0, "filetype").match("react") then
+		if string.match(vim.bo.filetype, "react") then
 			require("ts_context_commentstring.internal").update_commentstring()
 		end
 	end,

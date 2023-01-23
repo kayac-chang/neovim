@@ -72,7 +72,12 @@ return packer.startup(function(use)
 
 	-- LSP
 	use("neovim/nvim-lspconfig")
-	use("williamboman/mason.nvim")
+	use({
+		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup()
+		end,
+	})
 
 	-- Symbol outline
 	use({ "mxsdev/symbols-outline.nvim", branch = "merge-jsx-tree" })
@@ -81,10 +86,13 @@ return packer.startup(function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
-			"L3MON4D3/LuaSnip",
+			"neovim/nvim-lspconfig",
 			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/nvim-cmp",
+			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 		},
 	})
@@ -113,8 +121,7 @@ return packer.startup(function(use)
 	-- Fuzzy Finder
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.0",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = { "nvim-lua/plenary.nvim" },
 	})
 
 	-- Formatter
@@ -124,8 +131,12 @@ return packer.startup(function(use)
 	use("kylechui/nvim-surround")
 
 	-- Comment
-	use("JoosepAlviste/nvim-ts-context-commentstring")
-	use("terrortylor/nvim-comment")
+	use({
+		"terrortylor/nvim-comment",
+		requires = {
+			"JoosepAlviste/nvim-ts-context-commentstring",
+		},
+	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
