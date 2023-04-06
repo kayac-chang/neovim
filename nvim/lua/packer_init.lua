@@ -138,6 +138,23 @@ return packer.startup(function(use)
 		},
 	})
 
+	-- Context
+	use("nvim-treesitter/nvim-treesitter")
+	use({
+		"nvim-treesitter/nvim-treesitter-context",
+		config = function()
+			require("treesitter-context").setup({})
+		end,
+	})
+
+	-- Copilot
+	use({
+		"github/copilot.vim",
+		config = function()
+			vim.g.copilot_autostart = 1
+		end,
+	})
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then

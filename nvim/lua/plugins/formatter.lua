@@ -36,6 +36,21 @@ formatter.setup({
 		typescriptreact = {
 			require("formatter.defaults.prettier"),
 		},
+		json = {
+			require("formatter.filetypes.json").prettier,
+		},
+		prisma = {
+			function()
+				return {
+					exe = "yarn prisma format",
+					args = {
+						"--schema",
+						util.escape_path(util.get_current_buffer_file_path()),
+					},
+					try_node_modules = true,
+				}
+			end,
+		},
 
 		-- Rust
 		rust = {

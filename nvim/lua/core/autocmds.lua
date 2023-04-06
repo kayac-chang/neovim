@@ -29,6 +29,12 @@ autocmd("BufEnter", {
 	command = "set fo-=c fo-=r fo-=o",
 })
 
+autocmd("VimEnter", {
+	callback = function()
+		require("nvim-tree.api").tree.open()
+	end,
+})
+
 -- Settings for filetypes:
 -- Disable line length marker
 augroup("setLineLength", { clear = true })
@@ -68,6 +74,11 @@ autocmd("BufLeave", {
 })
 
 -- Auto Reload
+autocmd("CursorHold,CursorHoldI", {
+	pattern = "*",
+	command = "silent! checktime",
+})
+
 autocmd("FocusGained", {
 	pattern = "*",
 	command = "silent! checktime",

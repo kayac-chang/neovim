@@ -172,8 +172,3 @@ lspconfig.emmet_ls.setup({
 		},
 	},
 })
-
-lspconfig.sqls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
