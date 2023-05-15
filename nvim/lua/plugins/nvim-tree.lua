@@ -103,7 +103,7 @@ nvim_tree.setup({
 		update_cwd = true,
 		ignore_list = {},
 	},
-	ignore_ft_on_setup = {},
+	-- ignore_ft_on_setup = {},
 	system_open = {
 		cmd = "",
 		args = {},

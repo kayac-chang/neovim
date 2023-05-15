@@ -48,6 +48,9 @@ return packer.startup(function(use)
 	-- Indent line
 	use("lukas-reineke/indent-blankline.nvim")
 
+	-- Node Inspect
+	use("eliba2/vim-node-inspect")
+
 	-- Autopair
 	use({
 		"windwp/nvim-autopairs",
@@ -139,7 +142,6 @@ return packer.startup(function(use)
 	})
 
 	-- Context
-	use("nvim-treesitter/nvim-treesitter")
 	use({
 		"nvim-treesitter/nvim-treesitter-context",
 		config = function()
