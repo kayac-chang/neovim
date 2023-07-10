@@ -79,5 +79,8 @@ map("n", "<leader>ff", telescope("find_files"))
 map("n", "<leader>fg", telescope("live_grep"))
 map("n", "<leader>fb", telescope("buffers"))
 
+-- Lazygit
+map("n", "<leader>gg", ":LazyGit<CR>")
+
 -- Symbol Outline
 map("n", "<leader>s", ":SymbolsOutline<CR>")

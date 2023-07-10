@@ -127,6 +127,18 @@ return packer.startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 
+	-- lazygit
+	use({
+		"kdheepak/lazygit.nvim",
+		requires = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("telescope").load_extension("lazygit")
+		end,
+	})
+
 	-- Formatter
 	use("mhartington/formatter.nvim")
 
