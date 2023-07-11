@@ -90,9 +90,3 @@ autocmd("BufWritePost", {
 	pattern = "*",
 	command = "FormatWrite",
 })
-
--- lazygit
--- autocmd("BufEnter", {
--- 	pattern = "*",
--- 	command = "lua require('lazygit.utils').project_root_dir()",
--- })
