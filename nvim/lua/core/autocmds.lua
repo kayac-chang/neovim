@@ -74,7 +74,7 @@ autocmd("BufLeave", {
 })
 
 -- Auto Reload
-autocmd("CursorHold,CursorHoldI", {
+autocmd("CursorHold", {
 	pattern = "*",
 	command = "silent! checktime",
 })

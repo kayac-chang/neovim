@@ -13,7 +13,26 @@ end
 -- See: https://github.com/nvim-treesitter/nvim-treesitter#quickstart
 nvim_treesitter.setup({
 	-- A list of parser names, or "all"
-	ensure_installed = "all",
+	ensure_installed = {
+		"c",
+		"css",
+		"javascript",
+		"jsdoc",
+		"json",
+		"jsonc",
+		"prisma",
+		"python",
+		"rust",
+		"scss",
+		"sql",
+		"toml",
+		"typescript",
+		"lua",
+		"vim",
+		"vimdoc",
+		"query",
+		"yaml",
+	},
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
@@ -24,13 +43,5 @@ nvim_treesitter.setup({
 	highlight = {
 		-- `false` will disable the whole extension
 		enable = true,
-	},
-
-	-- For Comment
-	context_commentstring = {
-		enable = true,
-		config = {
-			sql = "-- %s",
-		},
 	},
 })

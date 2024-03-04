@@ -65,6 +65,17 @@ return packer.startup(function(use)
 	-- Tag viewer
 	use("preservim/tagbar")
 
+	use({
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		config = function()
+			vim.g.skip_ts_context_commentstring_module = true
+
+			require("ts_context_commentstring").setup({
+				enable_autocmd = false,
+			})
+		end,
+	})
+
 	-- Treesitter interface
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 
@@ -124,7 +135,10 @@ return packer.startup(function(use)
 	-- Fuzzy Finder
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
+		requires = {
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim",
+		},
 	})
 
 	-- lazygit
@@ -170,6 +184,20 @@ return packer.startup(function(use)
 				["markdown"] = true,
 			}
 		end,
+	})
+
+	use({
+		"kawre/leetcode.nvim",
+		requires = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim", -- required by telescope
+			"MunifTanjim/nui.nvim",
+
+			-- optional
+			"nvim-treesitter/nvim-treesitter",
+			"rcarriga/nvim-notify",
+			"nvim-tree/nvim-web-devicons",
+		},
 	})
 
 	-- Automatically set up your configuration after cloning packer.nvim

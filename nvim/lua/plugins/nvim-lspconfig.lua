@@ -145,6 +145,19 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
+require("lspconfig").tailwindcss.setup({
+	settings = {
+		tailwindCSS = {
+			experimental = {
+				classRegex = {
+					{ "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+					{ "cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+				},
+			},
+		},
+	},
+})
+
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
