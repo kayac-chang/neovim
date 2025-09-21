@@ -260,10 +260,7 @@ lazy.setup({
       dependencies = {
         'nvim-lua/plenary.nvim',
         'kyazdani42/nvim-web-devicons',
-      },
-      config = function()
-        require('gitsigns').setup{}
-      end
+      }
     },
 
     -- File explorer
@@ -279,13 +276,29 @@ lazy.setup({
         'kyazdani42/nvim-web-devicons',
         'lewis6991/gitsigns.nvim',
       },
+      -- 'nvim-lualine/lualine.nvim',
+      -- dependencies = { 'nvim-tree/nvim-web-devicons' },
+      -- config = function()
+      --   require('lualine').setup{
+      --     sections = {
+      --         lualine_b = { 'branch', 'diff',
+      --             {
+      --                 'diagnostics',
+      --                 sources = { "nvim_diagnostic" },
+      --                 symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' }
+      --             }
+      --         },
+      --         lualine_x = { 'copilot' ,'encoding', 'fileformat', 'filetype' },
+      --     },
+      --   }
+      -- end,
     },
 
     -- Treesitter
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
     -- Indent line
-    { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
+    { 'lukas-reineke/indent-blankline.nvim' },
 
     -- Tag viewer
     { 'preservim/tagbar' },
@@ -296,11 +309,21 @@ lazy.setup({
       event = 'InsertEnter',
       config = function()
         require('nvim-autopairs').setup{}
-      end
+      end,
     },
 
     -- LSP
-    { 'neovim/nvim-lspconfig' },
+    {
+      'neovim/nvim-lspconfig',
+      dependencies = {
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
+      },
+      config = function()
+        require('mason').setup()
+        require("mason-lspconfig").setup()
+      end,
+    },
 
     -- Autocomplete
     {
@@ -317,5 +340,108 @@ lazy.setup({
         'saadparwaiz1/cmp_luasnip',
       },
     },
+
+    -- Fuzzy Finder
+    {
+      'nvim-telescope/telescope.nvim',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        require('telescope').setup()
+      end,
+    },
+
+    -- Utilities
+    {
+      'echasnovski/mini.nvim',
+      version = false,
+      config = function()
+        require('mini.ai').setup()
+        require('mini.comment').setup {
+          options = {
+            custom_commentstring = function()
+              return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
+            end,
+          },
+        }
+        require('mini.move').setup()
+      end,
+      dependencies = {
+        'JoosepAlviste/nvim-ts-context-commentstring'
+      }
+    },
+
+    -- Surround
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    },
+
+    -- Formatting
+    { 'stevearc/conform.nvim' },
+
+    -- Relative Number
+    { 'sitiom/nvim-numbertoggle' },
+
+    -- avante
+    {
+      "yetone/avante.nvim",
+      event = "VeryLazy",
+      lazy = false,
+      version = "*",
+      config = function()
+        require('avante_lib').load()
+        require('avante').setup{
+          behaviour = {
+            use_cwd_as_project_root = true
+          }
+        }
+      end,
+      -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+      build = "make",
+      -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+      dependencies = {
+        "stevearc/dressing.nvim",
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        --- The below dependencies are optional,
+        "echasnovski/mini.pick", -- for file_selector provider mini.pick
+        "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+        "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+        "ibhagwan/fzf-lua", -- for file_selector provider fzf
+        "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+        "zbirenbaum/copilot.lua", -- for providers='copilot'
+        {
+          -- support for image pasting
+          "HakonHarnes/img-clip.nvim",
+          event = "VeryLazy",
+          opts = {
+            -- recommended settings
+            default = {
+              embed_image_as_base64 = false,
+              prompt_for_file_name = false,
+              drag_and_drop = {
+                insert_mode = true,
+              },
+              -- required for Windows users
+              use_absolute_path = true,
+            },
+          },
+        },
+        {
+          -- Make sure to set this up properly if you have lazy=true
+          'MeanderingProgrammer/render-markdown.nvim',
+          opts = {
+            file_types = { "markdown", "Avante" },
+          },
+          ft = { "markdown", "Avante" },
+        },
+      },
+    }
   },
 })

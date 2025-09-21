@@ -20,10 +20,8 @@ nvim_treesitter.setup {
     'luadoc', 'make', 'markdown', 'markdown_inline', 'nix', 'perl', 'python',
     'ruby','rust', 'sql', 'toml', 'typescript', 'vim', 'yaml'
   },
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-  },
 }

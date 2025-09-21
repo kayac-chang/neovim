@@ -11,7 +11,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Change leader to a comma
-vim.g.mapleader = ','
+vim.g.mapleader = ' '
 
 -----------------------------------------------------------
 -- Neovim shortcuts
@@ -63,3 +63,12 @@ map('n', '<leader>n', ':NvimTreeFindFile<CR>')      -- search file
 
 -- Tagbar
 map('n', '<leader>t', ':TagbarToggle<CR>')          -- open/close
+
+-- Telescope
+function telescope(cmd)
+  return "<cmd>lua require('telescope.builtin')." .. cmd .. "()<cr>"
+end
+
+map("n", "<leader>ff", telescope("find_files"))
+map("n", "<leader>fg", telescope("live_grep"))
+map("n", "<leader>fb", telescope("buffers"))
